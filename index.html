@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dongare Photo Studio</title>
+  <style>
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: #f1efef;
+      overflow-x: hidden;
+      background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
+
+    }
+
+    .overlay {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      animation: fadeIn 2s ease-in;
+    }
+
+   /* Sticky & centered desktop nav */
+   nav.desktop {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 30px;
+  display: flex;
+  gap: 25px;
+  z-index: 999;
+  margin-top: 50px;
+  backdrop-filter: blur(5px);
+  transition: top 0.5s ease;
+  opacity: 1;
+  
+}
+
+
+/* Desktop links */
+nav.desktop a, .sidebar a {
+  color: #f1efef;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+nav.desktop a:hover, .sidebar a:hover {
+  color: #ffcc70;
+}
+
+/* Menu icon for mobile */
+.menu-icon {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  font-size: 1.8rem;
+  z-index: 1001;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* Sidebar for mobile */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 100px;
+  height: 100%;
+  transition: 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar a {
+  font-size: 1.2rem;
+  padding: 10px;
+  border-radius: 5px;
+  transition: 0.3s ease;
+}
+
+
+
+/* Responsive: Show sidebar and hide desktop nav on small screens */
+@media (max-width: 768px) {
+  nav.desktop {
+    display: none;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+}
+
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      animation: fadeUp 2s ease-in;
+    }
+
+    p.subtext {
+      font-size: 1.2rem;
+      color: #fffafa;
+      margin-bottom: 30px;
+      animation: fadeUp 2s ease-in;
+    }
+
+    .cta-btn, .btn-gallery {
+      padding: 12px 30px;
+      background: #ffcc70;
+      border: none;
+      border-radius: 25px;
+      color: #010101;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+      animation: fadeUp 2s ease-in;
+    }
+
+    .cta-btn:hover, .btn-gallery:hover {
+      background: #ffd891;
+    }
+
+    .social-icons {
+      margin-top: 40px;
+      display: flex;
+      gap: 20px;
+      font-size: 1.5rem;
+      animation: fadeUp 2.2s ease-in;
+    }
+
+    .social-icons a {
+        color: #f1efef;
+        transition: color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: #ffcc70;
+    }
+
+    footer {
+      margin-top: 60px;
+      font-size: 0.9rem;
+      color: #f1efef;
+    }
+
+    .services-container, .about-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      animation: fadeUp 2s ease-in;
+    }
+
+    .card {
+      background: rgba(255, 204, 112, 0.9);
+      padding: 20px;
+      border-radius: 15px;
+      width: 300px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: 0.3s;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      color: #333;
+      margin: 15px 0;
+    }
+
+    .card p {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideDown {
+      from { transform: translate(-50%, -50px); opacity: 0; }
+      to { transform: translateX(-50%); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      nav.desktop {
+        display: none;
+      }
+
+      .menu-icon {
+        display: block;
+        color: #f1efef;
+    }
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      height: 500px;
+      background:rgba(255, 204, 112, 0.9);
+    }
+
+    .carousel-container {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .carousel-images {
+      display: flex;
+      height: 100%;
+      transition: transform 0.4s ease-in-out;
+    }
+
+    .carousel-images img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+
+    .carousel-nav button {
+      background: rgba(0, 0, 0, 0.6);
+      color: #f1efef;
+      border: none;
+      padding: 10px 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .carousel-nav button:hover {
+      background: rgba(255, 204, 112, 0.8);
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background:rgba(255, 204, 112, 0.9);
+      color: #050505;
+      padding: 10px;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+  
+      max-width: 1200px;
+      margin-bottom: 30px;
+    }
+
+    .contact-left, .contact-right {
+        background: rgba(255, 204, 112, 0.9);
+        padding: 25px;
+      border-radius: 15px;
+      color: #000;
+      flex: 1 1 300px;
+    }
+
+    .studio-img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .address {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    h2 {
+  font-size: 2rem;
+  color: #ffcc70;
+  text-align: center;
+  margin: 100px 0 30px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  width: 60%;
+  height: 3px;
+  background-color: #ffcc70;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  border-radius: 50px;
+  transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+/* Hover Effects */
+h2:hover {
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+h2:hover::after {
+  width: 80%;
+  background-color: #ffffff;
+}
+
+
+
+h4{
+  font-size: 2rem;
+  color: #030302;
+  text-align: center;
+  
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+h4::after {
+  content: '';
+  position: absolute;
+  width: 60%;
+  height: 3px;
+  background-color: #090909;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  border-radius: 50px;
+  transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+/* Hover Effects */
+h4:hover {
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+h4:hover::after {
+  width: 80%;
+  background-color: #ffffff;
+}
+
+
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input, textarea {
+     
+      padding: 12px;
+      margin: 10px 0;
+      
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    input[type="submit"] {
+      background: #f7f6f5;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    input[type="submit"]:hover {
+      background: #9e814d;
+    }
+
+    .map-container {
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 20px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 350px;
+      border: none;
+      border-radius: 10px;
+    }
+
+    
+    @media (max-width: 768px) {
+      .overlay {
+        padding: 20px 10px;
+      }
+
+      .contact-container {
+        flex-direction: column;
+      }
+    }
+    @media (max-width: 768px) {
+  header {
+    font-size: 1.8rem;
+  }
+
+  .overlay {
+    padding: 30px 10px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .gallery-item {
+    height: 300px;
+  }
+
+  .carousel-nav button {
+    padding: 8px 12px;
+    font-size: 1.2rem;
+  }
+
+  .caption {
+    font-size: 1rem;
+    padding: 8px;
+  }
+
+  footer {
+    font-size: 0.8rem;
+    margin-top: 30px;
+  }
+}
+.hero-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #ffcc70;
+  margin-bottom: 10px;
+  text-shadow: 0 0 8px #ffcc7060;
+}
+/* Footer Base Styles */
+
+
+.studio-logo {
+  width: 150px; /* Adjust size as needed */
+  height: auto;
+  display: block;
+  margin: 0 auto 20px auto; /* Center the logo with space below */
+  border-radius: 10px; /* Optional: rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Optional: soft shadow */
+  margin-top: 60px;
+}
+
+
+/* General Footer Styling */
+.footer-main {
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', sans-serif;
+  box-sizing: border-box;
+  font-weight: bold;
+
+}
+
+
+.footer_inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+.footer_col {
+  flex: 1;
+  min-width: 250px;
+}
+
+.footer_title {
+  display: inline-block;
+  font-size: 1.2rem;
+  color: #ffcc70;
+  margin-bottom: 12px;
+  position: relative;
+}
+.footer_title::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #ffcc70;
+  border-radius: 2px;
+}
+
+.footer_links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer_links li {
+  margin-bottom: 8px;
+}
+
+.footer_links a {
+  display: block;
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s ease, padding-left 0.3s ease;
+}
+
+.footer_links a:hover {
+  color: #ffcc70;
+  padding-left: 5px;
+}
+
+.social_icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 12px;
+  
+}
+
+.social_icons a {
+  color: #ffcc70;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease, color 0.3s ease;
+  margin-top: 12px;
+
+}
+.social_icons a:first-child {
+  margin-left: 140px; /* Adds 40px margin only to the first icon */
+}
+
+.social_icons a:hover {
+  transform: scale(1.2);
+  color: #fff;
+  text-shadow: 0 0 8px #ffcc70;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  margin-top: 30px;
+  font-size: 0.85rem;
+  border-top: 1px solid #444;
+  color: #aaa;
+}
+
+.footer-bottom a {
+  color: #ffcc70;
+  text-decoration: none;
+}
+
+.footer-bottom a:hover {
+  text-decoration: underline;
+}
+.footer-contact-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligns icons and phone neatly */
+  gap: 10px;
+}
+
+.phone-number {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Mobile Responsive Fix */
+@media (max-width: 768px) {
+  .footer_inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer_col {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 25px;
+    padding: 0 10px;
+  }
+
+  .social_icons {
+    justify-content: center;
+  }
+  .social_icons a:first-child {
+    margin-left: 0; /* Reset or adjust if necessary */
+  }
+}
+
+@media (max-width: 480px) {
+  .footer_title {
+    font-size: 1rem;
+  }
+
+  .footer_text,
+  .footer_links a {
+    font-size: 0.85rem;
+  }
+
+  .social_icons a {
+    font-size: 1.2rem;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Menu Icon -->
+<div class="menu-icon" onclick="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+  </div>
+  
+  <!-- Sidebar for Mobile -->
+  <div class="sidebar" id="sidebar">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </div>
+  
+  <!-- Desktop Navigation -->
+  <nav class="desktop">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  
+  <!-- Home Section -->
+  <div class="overlay" id="home">
+    <img src="images/logo1.jpg" alt="Dongare Photo Studio Logo" class="studio-logo">
+
+    <h1 class="hero-title">Welcome to Dongare Photo Studio</h1>
+    <p class="subtext">Capturing timeless memories in Khanapur, Maharashtra, Sangli</p>
+    <a href="#gallery" class="btn-gallery">View Gallery</a>
+    <a href="#contact" class="btn-gallery" style="margin-top: 20px;">Contact US</a>
+
+    <div class="social-icons">
+      <a href="https://wa.me/919423809355" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/dongare.photo?igsh=MXhsMWo2czE1MzRsaA==" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://youtube.com/@dongarephoto?si=QJJhYR2dEFNWOeAv" target="_blank"><i class="fab fa-youtube"></i></a>
+    </div>
+    <footer>Owner: Anildatta (Pravin) Dongare | 📞 9423809355</footer>
+  </div>
+
+  <!-- About Section -->
+  <div class="overlay" id="about">
+    <h2>About Dongare Photo Studio</h2>
+    <div class="about-container">
+      <!-- Studio Info Card -->
+      <div class="card">
+        <img src="images/studio.jpg" alt="Dongare Photo Studio" />
+        <h3>About the Studio</h3>
+        <p>Dongare Photo Studio, located in Khanapur, Maharashtra, specializes in capturing timeless memories with a professional touch.</p>
+      </div>
+
+      <!-- Owner Info Card -->
+      <div class="card">
+        <img src="images/ow.jpg" alt="Anildatta Dongare" />
+        <h3>Anildatta (Pravin) Dongare</h3>
+        <p>Founder & Owner</p>
+        <p>Anildatta (Pravin) Dongare is the creative force behind Dongare Photo Studio. With a passion for capturing special moments, he founded the studio to provide high-quality photography to the community.</p>
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- Services Section -->
+  <div class="overlay" id="services">
+    <h2>Our Services</h2>
+    <div class="services-container">
+      <!-- Engagement Photography Card -->
+      <div class="card">
+        <img src="images/e1.jpg" alt="Engagement Photography" />
+        <h3>Engagement</h3>
+        <p>Celebrate your engagement with stunning photos that tell your love story.</p>
+      </div>
+      <!-- Pre-Wedding Photography Card -->
+      <div class="card">
+        <img src="images/p1.jpg" alt="Pre-Wedding Photography" />
+        <h3>Pre-Wedding</h3>
+        <p>Capture the love and excitement leading up to your wedding day with beautiful pre-wedding shoots.</p>
+      </div>
+      <!-- Wedding Photography Card -->
+      <div class="card">
+        <img src="images/m1.jpg" alt="Wedding Photography" />
+        <h3>Wedding Photography</h3>
+        <p>Make your big day unforgettable with our exquisite wedding photography services.</p>
+      </div>
+      <!-- Baby Shower Photography Card -->
+      <div class="card">
+        <img src="images/b4.jpg" alt="Baby Shower Photography" />
+        <h3>Baby Shower</h3>
+        <p>Capture the joy of welcoming a new life into the world with our baby shower photography services.</p>
+      </div>
+      <!-- Birthday Photography Card -->
+      <div class="card">
+        <img src="images/bb2.jpg" alt="Birthday Photography" />
+        <h3>Birthday</h3>
+        <p>Make birthdays extra special with our personalized birthday photography packages.</p>
+      </div>
+      <!-- Studio Photography Card -->
+      <div class="card">
+        <img src="images/s1.jpg" alt="Studio Photography" />
+        <h3>Studio</h3>
+        <p>Get professional studio shots for portraits, corporate photos, or special occasions.</p>
+      </div>
+    </div>
+    <div class="overlay">
+        <h2>Gallery</h2>
+    
+        <div class="gallery-grid" id="gallery">
+          <!-- 1. Engagement -->
+          <div class="gallery-item">
+            <div class="carousel-container">
+              <div class="carousel-images" id="carousel1">
+                <img src="images/e1.jpg" alt="1">
+                <img src="images/e2.jpg" alt="2">
+                <img src="images/e3.jpg" alt="3">
+                <img src="images/e4.jpg" alt="4">
+                <img src="images/e5.jpg" alt="5">
+              </div>
+              <div class="carousel-nav">
+                <button onclick="moveCarousel('carousel1', -1)">&#10094; </button>
+                <button onclick="moveCarousel('carousel1', 1)"> &#10095;</button>
+              </div>
+            </div>
+            <div class="caption">Engagement Photography</div>
+          </div>
+    
+          <!-- 2. Pre Wedding -->
+          <div class="gallery-item">
+            <div class="carousel-container">
+              <div class="carousel-images" id="carousel2">
+                <img src="images/p1.jpg" alt="1">
+                <img src="images/p2.jpg" alt="2">
+                <img src="images/p3.jpg" alt="3">
+                <img src="images/p4.jpg" alt="4">
+                <img src="images/p5.jpg" alt="5">
+              </div>
+              <div class="carousel-nav">
+                <button onclick="moveCarousel('carousel2', -1)">&#10094; </button>
+                <button onclick="moveCarousel('carousel2', 1)"> &#10095;</button>
+              </div>
+            </div>
+            <div class="caption">Pre-Wedding Photography</div>
+          </div>
+    
+          <!-- 3. Wedding -->
+          <div class="gallery-item">
+            <div class="carousel-container">
+              <div class="carousel-images" id="carousel3">
+                <img src="images/w1.jpg" alt="1">
+                <img src="images/w2.jpg" alt="2">
+                <img src="images/w3.jpg" alt="3">
+                <img src="images/w4.jpg" alt="4">
+                <img src="images/w5.jpg" alt="5">
+              </div>
+              <div class="carousel-nav">
+                <button onclick="moveCarousel('carousel3', -1)">&#10094; </button>
+                <button onclick="moveCarousel('carousel3', 1)"> &#10095;</button>
+              </div>
+            </div>
+            <div class="caption">Wedding Photography</div>
+          </div>
+    
+          <!-- 4. Baby Shower -->
+          <div class="gallery-item">
+            <div class="carousel-container">
+              <div class="carousel-images" id="carousel4">
+                <img src="images/b1.jpg" alt="1">
+                <img src="images/b2.jpg" alt="2">
+                <img src="images/b3.jpg" alt="3">
+                <img src="images/b4.jpg" alt="4">
+                <img src="images/b5.jpg" alt="5">
+              </div>
+              <div class="carousel-nav">
+                <button onclick="moveCarousel('carousel4', -1)">&#10094; </button>
+                <button onclick="moveCarousel('carousel4', 1)"> &#10095;</button>
+              </div>
+            </div>
+            <div class="caption">Baby Shower</div>
+          </div>
+    
+          <!-- 5. Birthday -->
+          <div class="gallery-item">
+            <div class="carousel-container">
+              <div class="carousel-images" id="carousel5">
+                <img src="images/bb1.jpg" alt="1">
+                <img src="images/bb2.jpg" alt="2">
+                <img src="images/bb3.jpg" alt="3">
+                <img src="images/bb4.jpg" alt="4">
+                <img src="images/bb5.jpg" alt="5">
+              </div>
+              <div class="carousel-nav">
+                <button onclick="moveCarousel('carousel5', -1)">&#10094; </button>
+                <button onclick="moveCarousel('carousel5', 1)"> &#10095;</button>
+              </div>
+            </div>
+            <div class="caption">Birthday Moments</div>
+          </div>
+    
+          <!-- 6. Studio -->
+          <div class="gallery-item">
+            <div class="carousel-container">
+              <div class="carousel-images" id="carousel6">
+                <img src="images/s1.jpg" alt="1">
+                <img src="images/s2.jpg" alt="2">
+                <img src="images/s3.jpg" alt="3">
+                <img src="images/s2.jpg" alt="4">
+                <img src="images/s3.jpg" alt="5">
+              </div>
+              <div class="carousel-nav">
+                <button onclick="moveCarousel('carousel6', -1)">&#10094; </button>
+                <button onclick="moveCarousel('carousel6', 1)"> &#10095;</button>
+              </div>
+            </div>
+            <div class="caption">Studio Portraits</div>
+          </div>
+        </div>
+        </div>
+    
+
+    </div>
+
+  <!-- Contact Section -->
+  <div class="overlay" id="contact">
+    <h2>Contact Us</h2>
+    <p>Feel free to reach out for any inquiries or bookings.</p>
+    <div class="overlay">
+        <div class="contact-container">
+          <div class="contact-left">
+            <img src="images/studio.jpg" alt="Dongare Photo Studio" class="studio-img" />
+            <p class="address">
+              <strong>Address</strong><br />
+              Khanapur 415307<br />
+              Near by Khanapur Bus Stand<br />
+              Sangli, Maharashtra, India
+            </p>
+          </div>
+          <div class="contact-right">
+            <h3>Contact Us</h3>
+            <form action="https://formspree.io/f/mgvabqqz" method="POST">
+              <input type="text" name="name" placeholder="Your Name" required />
+              <input type="email" name="email" placeholder="Your Email" required />
+              <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+              <input type="submit" value="Send Message" />
+            </form>
+          </div>
+        </div>
+    
+        <div class="map-container">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15112.304124320296!2d74.515265!3d16.6386616!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc0370f5b1041e5%3A0xf1ffcbf202e170a7!2sKhanapur%2C%20Maharashtra%20415307!5e0!3m2!1sen!2sin!4v1713341781356!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+      
+      
+
+      <footer class="footer-main" style="color:white;">
+  <div class="footer_inner">
+    <!-- About Section -->
+    <div class="footer_col">
+      <h3 class="footer_title">Dongare Photo Studio</h3>
+      <p class="footer_text">
+        <i class="fas fa-map-marker-alt"></i> Main Road, Khanapur, Sangli – 415307
+      </p>
+    </div>
+
+    <!-- Quick Links Section -->
+    <div class="footer_col">
+      <h3 class="footer_title">Quick Links</h3>
+      <ul class="footer_links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Social Media & Contact Section -->
+    <div class="footer_col">
+      <h3 class="footer_title">Connect With Us</h3>
+      
+      <div class="footer_text social_icons">
+        <a href="https://wa.me/919423809355" target="_blank" aria-label="WhatsApp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://www.instagram.com/dongare.photo?igsh=MXhsMWo2czE1MzRsaA==" target="_blank" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://youtube.com/@dongarephoto?si=QJJhYR2dEFNWOeAv" target="_blank" aria-label="YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
+      </div>
+
+      <p class="footer_text" style="margin-top:12px;">
+        <i class="fas fa-phone"></i> +91 94238 09355
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="footer-bottom">
+    <p>&copy; 2025 Dongare Photo Studio. All rights reserved.</p>
+    <p class="designer-credit">
+      Designed by 
+      <a href="https://riya-kharade.netlify.app" target="_blank">
+        Riya Kharade <i class="fas fa-external-link-alt"></i>
+      </a>
+    </p>
+  </div>
+  
+</footer>
+
+      
+  <script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('active');
+  }
+
+    function moveCarousel(id, dir) {
+      const carousel = document.getElementById(id);
+      const images = carousel.children;
+      const totalImages = images.length;
+
+      const transformValue = window.getComputedStyle(carousel).transform;
+      let currentIndex = 0;
+
+      if (transformValue !== 'none') {
+        const matrix = transformValue.split('(')[1].split(')')[0].split(',');
+        currentIndex = Math.abs(parseInt(matrix[4]) / carousel.offsetWidth);
+      }
+
+      currentIndex = (currentIndex + dir + totalImages) % totalImages;
+
+      carousel.style.transition = "transform 0.4s ease-in-out";
+      carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+      if (currentIndex === totalImages - 1 && dir === 1) {
+        setTimeout(() => {
+          carousel.style.transition = "none";
+          carousel.style.transform = `translateX(0%)`;
+        }, 400);
+      }
+    }
+  </script>
+
+</body>
+</html>
