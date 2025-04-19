@@ -59,9 +59,9 @@ This website was developed as a real freelance project for a professional photog
 
 ## 🔗 Live Demo
 
-🌐 [View Live Website on Netlify](https://your-netlify-link.netlify.app)
+🌐 [View Live Website on Netlify](https://dongare-photo-studio.netlify.app/)
 
-💻 [View Source Code on GitHub](https://github.com/riya-kharade/Dongare-Photo-Studio-Website)
+💻 [View Source Code on GitHub](https://github.com/Riya-Kharade/Dongare-Photo-Studio-Website)
 
 <br>
 
