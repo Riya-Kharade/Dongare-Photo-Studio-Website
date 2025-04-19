@@ -6,7 +6,7 @@
 
 <br>
 
-## 💙 Dongare Photo Studio Website
+## 🖼️  Dongare Photo Studio Website
 
 A clean, transparent, and modern website created for Dongare Photo Studio to showcase photography services, display gallery collections, and allow clients to connect easily.
 
